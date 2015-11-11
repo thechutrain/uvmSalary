@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import pandas as pd
 
 # import urllib
 import time
+# import pprint
 
 ########## GET THE NAME OF all users ###########
 # Read in the clean data (csv file) and make a dataframe
@@ -22,14 +24,25 @@ browser.get('http://www.uvm.edu/directory')
 elem = browser.find_element_by_name('directory_name') # Find the search box
 elem.send_keys('Robert Erickson' + Keys.ENTER)
 
-# get the page source 
-print ("before timmer")
-time.sleep(2)   # need these two second to wait for the javascript to load!
-source = browser.page_source
-# source = str(source)  # can't convert it into a string
-source = source.encode('utf8', 'replace')
-# print type(source)
-print source
+# Have the program wait for 2 seconds for the javascript to laod
+print ("before timer")
+time.sleep(5)   
+
+# get the page source info
+# search = browser.find_elements_by_class_name("person-data.expanded")
+# search = browser.find_elements_by_xpath("//td[@data-label='NetID']").text
+# print search
+element = browser.find_element_by_xpath("//td[@data-label='NetID']")
+search = element.text
+print search
+
+#### WORKS
+# source = browser.page_source
+# # source = str(source)  # can't convert it into a string
+# source = source.encode('utf8', 'replace')
+# # print type(source)
+# print source
+
 
 # get the Net Id
 
