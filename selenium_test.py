@@ -25,8 +25,8 @@ elem = browser.find_element_by_name('directory_name') # Find the search box
 elem.send_keys('Robert Erickson' + Keys.ENTER)
 
 # Have the program wait for 2 seconds for the javascript to laod
-print ("before timer")
-time.sleep(5)   
+# print ("before timer")
+time.sleep(1)   
 
 # get the page source info
 # search = browser.find_elements_by_class_name("person-data.expanded")
