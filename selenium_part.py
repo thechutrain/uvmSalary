@@ -29,6 +29,8 @@ df = df.loc[df["Year"] == 2014]
 unique_names = set(df.Name)
 # convert the set into a list, so its easier to print
 unique_names = list(unique_names)
+##### GET A PART OF THE UNIQUE NAMES ####
+unique_names = unique_names[:10]
 unique_netID = [] # list that stores all the unique netID
 
 
@@ -54,25 +56,34 @@ for i in range(len(unique_names)):
 		element = browser.find_element_by_xpath("//td[@data-label='NetID']")
 		search = element.text
 		# add to list
-		unique_netID.append(search)
+		# unique_netID.append(search)
 	except:
 		# no person was found:
-		unique_netID.append("")
+		# unique_netID.append("")
+		search = ""
+	# add it to the unique_netID list
+	# search term is unicode so turn it into a string
+	search = search.encode('ascii','ignore')
+	unique_netID.append(search)
+
 	pbar.update(i+1)
 pbar.finish()
 
 #make a dataframe
 print len(unique_names)
 print len(unique_netID)
+##### Debugging 
+# print unique_netID
+# print type(unique_netID[0])
 # make a list of indexes for the dataframe, from 1 to last number
 index_list = range(1, len(unique_names)+1) 
 data = zip(index_list, unique_names, unique_netID)
 #make a dataframe
 df_name_netID = pd.DataFrame(data, columns=["index", "unique_names", "unique_netID"])
+# print df_name_netID
 df_name_netID.to_csv(path_or_buf="employees_2014_netID.csv", index=False, columns=["index", "unique_names", "unique_netID"])
 
 ##### Comments
 # pretty good stuff, except you can get two people with just last name & first name: Robert Benoit
 
 browser.quit()
-
