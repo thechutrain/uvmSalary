@@ -10,6 +10,14 @@ import csv
 from progressbar import ProgressBar
 from progressbar import Percentage, Bar, ETA
 
+####### FUNCTION OVERVIEW ############
+# This function "getNetId()" uses the master csv file to get
+# a unique list of employee names from 2014. It uses that list of employee
+# names to search the uvm.edu/directory page, renders the javascript inorder
+# to unfold the netId containing html. If the netId exists, it will append the
+# employee name || netId in a line
+# if not, it will add the employee name to a different text file.
+
 def getNetId():
 	######### little function to help with searching names
 	# given a name in this format: Last,First Middle
