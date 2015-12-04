@@ -59,16 +59,34 @@ def getMoreInfo(yes_netId_txt):
         soup = BeautifulSoup(html_source)
         summary = soup.find(id="directory_container")
         summary = str(summary)
-
+        # Make two files; one if all data is there & other if data is not there
+    	all_data = open("data/allData.txt", "a")
+    	missing_data = open("data/missingData.txt", "a")
         try:
-            print extract_info(summary)
+            info = extract_info(summary)
+            # write to the allData file
+            all_data.write(key)
+            all_data.write("||")
+            all_data.write(netId)
+            all_data.write("||")
+            all_data.write(info[0])
+            all_data.write("||")
+            all_data.write(info[1])
+            all_data.write("||")
+            all_data.write(info[2])
+            all_data.write("||")
+            all_data.write(info[3])
+            all_data.write("\n")
+
         except:
-            print key
-    # try to parse through the summary to get useful info
-            # try:
-            #     print extract_info(summary)
-            # except:
-            #     print key
+        	# write to the missing data file
+        	missing_data.write(key)
+        	missing_data.write("||")
+        	missing_data.write(netId)
+        	missing_data.write("\n")
+        #close file
+        all_data.close()
+        missing_data.close()
 
     browser.quit()
 
